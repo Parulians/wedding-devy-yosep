@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Girassol&family=Luxurious+Script&family=ZCOOL+XiaoWei&display=swap");
+@import "tailwindcss";
+
+/* * {
+  font-family: "Luxurious Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.fontSub {
+  font-family: "Girassol", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.fontDesc {
+  font-family: "ZCOOL XiaoWei", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+} */
+
+* {
+  font-family: "Girassol", serif;
+}
+.font2 {
+  font-family: "Luxurious Script", cursive;
+}
+.font3 {
+  font-family: "ZCOOL XiaoWei", sans-serif;
+}
+.font4 {
+  font-family: "Dancing Script", cursive;
+  font-weight: 600; /* Supaya lebih jelas dibaca */
+}
+html {
+  scroll-behavior: smooth;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
