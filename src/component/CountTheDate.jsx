@@ -250,21 +250,21 @@ const CountTheDate = () => {
           </div>
         </div>
 
-        {/* Button */}
-        <div className="relative z-10 flex justify-center">
+          {/* Button */}
+        <div className="relative z-10 flex justify-center w-full">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
             viewport={{ once: true }}
-            className="flex relative z-40 bottom-0 -translate-y-35 justify-center"
+            className="flex relative z-40 bottom-0 -translate-y-35 justify-center w-full"
           >
-            <div className="flex gap-3 bottom-0 text-white">
+            <div className="flex gap-3 items-center bottom-0 text-white">
               {/* Menu Button */}
               <Menu />
               {/* Next Page */}
               <Link to="/home" className="flex items-center gap-2">
-                <button className="flex justify-center items-center w-9 h-9 rounded-2xl bg-[#AD1919] hover:bg-[#d12222] transition-all ease-in-out duration-300 cursor-pointer">
+                <button className="flex justify-center items-center w-9 h-9 rounded-2xl bg-[#AD1919] hover:bg-[#d12222] transition-all ease-in-out duration-300 cursor-pointer shrink-0">
                   <FiArrowRight className="text-2xl" />
                 </button>
               </Link>
@@ -272,7 +272,7 @@ const CountTheDate = () => {
           </motion.div>
 
           {/* Audio Button */}
-          <div className="fixed flex justify-center absolute z-200 top-0 right-0 translate-y-5 -translate-x-2">
+          <div className="fixed flex justify-center z-200 top-0 right-0 translate-y-5 -translate-x-2">
             <AudioButton />
           </div>
         </div>

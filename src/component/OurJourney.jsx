@@ -284,7 +284,7 @@ const OurJourney = () => {
             viewport={{ once: true }}
             className="flex relative z-100 bottom-0 mb-20 -translate-y-35 justify-center"
           >
-            <div className="flex gap-3 bottom-0 text-white">
+            <div className="flex gap-3 items-center bottom-0 text-white">
               {/* Menu Button */}
               <Menu />
               {/* Next Page */}

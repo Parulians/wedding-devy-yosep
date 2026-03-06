@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ornamenHead from "../assetsU2/ornamenHead.png";
 import ulosBottom from "../assetsU2/ulosLimit.png";
 import ornamenSide from "../assetsU2/ornamenSide.webp";
@@ -9,60 +9,128 @@ import background from "../assetsU2/background.webp";
 import CreditCardEko from "./CreditCard-Eko";
 import CreditCardDevy from "./CreditCard-Devy";
 import { Link } from "react-router";
-import { FiArrowRight } from "react-icons/fi";
-import { IoMdHeart } from "react-icons/io";
+import { FiArrowRight, FiSend } from "react-icons/fi";
+import { IoMdHeart, IoMdCheckmarkCircle } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa";
 import { FaHandshakeSimple } from "react-icons/fa6";
-import { easeInOut, motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import AudioButton from "./AudioButton";
 import Menu from "./Menu";
 
+const relationOptions = [
+  {
+    key: "Keluarga",
+    icon: <IoMdHeart />,
+    iconStyle: "bg-[#AD1919] text-[#ffd3d3]",
+    styleColor: "bg-[#ffd3d3] text-[#AD1919] border border-[#AD1919]",
+  },
+  {
+    key: "Sahabat",
+    icon: <FaUserFriends />,
+    iconStyle: "bg-indigo-700 text-indigo-100",
+    styleColor: "bg-indigo-100 text-indigo-700 border border-indigo-700",
+  },
+  {
+    key: "Rekan",
+    icon: <FaSuitcase />,
+    iconStyle: "bg-teal-700 text-teal-100",
+    styleColor: "bg-teal-100 text-teal-700 border border-teal-700",
+  },
+  {
+    key: "Lainnya",
+    icon: <FaHandshakeSimple />,
+    iconStyle: "bg-[#fff1b2] text-[#ec496c]",
+    styleColor: "bg-[#ec496c] text-[#fff1b2] border border-[#fff1b2]",
+  },
+];
+
+const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDZSbc3Lt8bFHzIXdL9l5tgYuhjJA4unYcCYCq_xL-3ADBWXTKAwaNCqHIO4--dto-/exec";
+
 const WeddingWish = () => {
-  const dummyComment = [
-    {
-      id: 1,
-      icon: <IoMdHeart />,
-      styleColor:
-        "bg-[#ffd3d3] text-[#AD1919] border border-[#AD1919] shadow-xl",
-      iconStyle: "bg-[#AD1919] text-[#ffd3d3]",
-      relation: "Keluarga",
-      name: "Steven Yudianto",
-      desc: "Selamat menikah untuk Yosep & Devy",
-      hours: "2 Jam yang lalu",
-    },
-    {
-      id: 2,
-      icon: <FaUserFriends />,
-      styleColor: "bg-blue-200 text-black border border-black shadow-xl",
-      iconStyle: "bg-black text-blue-200",
-      relation: "Sahabat",
-      name: "Ricardo",
-      desc: "Selamat menempuh hidup baru! Bahagia selalu untuk kalian berdua",
-      hours: "3 Jam yang lalu",
-    },
-    {
-      id: 3,
-      icon: <FaSuitcase />,
-      styleColor: "bg-teal-200 text-blue-700 border border-blue-700 shadow-xl",
-      iconStyle: "bg-blue-700 text-teal-200",
-      relation: "Rekan",
-      name: "Askar",
-      desc: "Semoga pernikahan kalian menjadi awal dari kebahagiaan yang abadi. Selamat!",
-      hours: "4 Jam yang lalu",
-    },
-    {
-      id: 4,
-      icon: <FaHandshakeSimple />,
-      styleColor:
-        "bg-[#ec496c] text-[#fff1b2] border border-[#fff1b2] shadow-xl",
-      iconStyle: "bg-[#fff1b2] text-[#ec496c]",
-      relation: "Lainnya",
-      name: "Ikhsan Skuter",
-      desc: "Barakallah! Semoga menjadi keluarga yang sakinah, mawaddah, wa rahmah. Aamiin",
-      hours: "5 Jam yang lalu",
-    },
-  ];
+  const [selectedRelation, setSelectedRelation] = useState("");
+  const [nama, setNama] = useState("");
+  const [ucapan, setUcapan] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(APP_SCRIPT_URL);
+        const result = await response.json();
+        if (result && result.data) {
+          const mappedData = result.data.map((item) => {
+            const dateObj = new Date(item.timestamp);
+            const dateStr = dateObj.toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "short",
+              year: "numeric"
+            });
+            const timeStr = dateObj.toLocaleTimeString("id-ID", {
+              hour: "2-digit",
+              minute: "2-digit"
+            });
+            return {
+              id: item.id || Date.now() + Math.random(),
+              relation: item.relation,
+              name: item.name,
+              desc: item.desc,
+              hours: `${dateStr} ${timeStr}`,
+            };
+          });
+          setComments(mappedData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchComments();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedRelation || !nama.trim() || !ucapan.trim()) return;
+    setIsSubmitting(true);
+    
+    try {
+      const formData = new FormData();
+      formData.append("name", nama.trim());
+      formData.append("relation", selectedRelation);
+      formData.append("desc", ucapan.trim());
+
+      await fetch(APP_SCRIPT_URL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors" // Required to avoid CORS block when sending to App Script
+      });
+
+      const newDate = new Date();
+      const newComment = {
+        id: Date.now(),
+        relation: selectedRelation,
+        name: nama.trim(),
+        desc: ucapan.trim(),
+        hours: "Baru saja",
+      };
+      
+      setComments((prev) => [newComment, ...prev]);
+      setSelectedRelation("");
+      setNama("");
+      setUcapan("");
+      setSubmitSuccess(true);
+      setTimeout(() => setSubmitSuccess(false), 3000);
+    } catch (error) {
+      console.error("Error submitting form", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="w-full min-h-screen bg-[#721315] flex justify-center">
@@ -207,78 +275,245 @@ const WeddingWish = () => {
               />
             </div>
             <h1 className="font2 text-6xl text-[#fff1b2]">Wedding Wish</h1>
-            <div className="bg-[#AD1919]/30 relative z-0 flex flex-col items-center gap-5 w-85 h-full py-5 rounded-[3px] text-[#fff1b2]">
-              {/* Container Wedding Wish */}
-              <div className="flex flex-col items-center pt-5 gap-3 overflow-auto">
-                <label>HUBUNGAN</label>
-                <div className="flex gap-3">
-                  <button className="bg-[#fff1b2] text-[#ec496c] flex flex-col items-center rounded-full px-3 py-2 hover:bg-[#ec496c] hover:text-[#fff1b2] transition-all duration-200 ease-in-out cursor-pointer">
-                    <IoMdHeart />
-                    <p>Keluarga</p>
-                  </button>
-                  <button className="bg-[#fff1b2] text-[#ec496c] flex flex-col items-center rounded-full px-3 py-2 hover:bg-[#ec496c] hover:text-[#fff1b2] transition-all duration-200 ease-in-out cursor-pointer">
-                    <FaUserFriends />
-                    <p>Sahabat</p>
-                  </button>
-                  <button className="bg-[#fff1b2] text-[#ec496c] flex flex-col items-center rounded-full px-3 py-2 hover:bg-[#ec496c] hover:text-[#fff1b2] transition-all duration-200 ease-in-out cursor-pointer">
-                    <FaSuitcase />
-                    <p>Rekan</p>
-                  </button>
-                  <button className="bg-[#fff1b2] text-[#ec496c] flex flex-col items-center rounded-full px-3 py-2 hover:bg-[#ec496c] hover:text-[#fff1b2] transition-all duration-200 ease-in-out cursor-pointer">
-                    <FaHandshakeSimple />
-                    <p>Lainnya</p>
-                  </button>
+            {/* Modern Glassmorphism Form */}
+            <form
+              onSubmit={handleSubmit}
+              className="relative z-0 flex flex-col items-center gap-5 w-85 h-full py-6 px-4 rounded-2xl text-[#fff1b2]"
+              style={{
+                background: "rgba(173,25,25,0.22)",
+                backdropFilter: "blur(14px)",
+                border: "1px solid rgba(255,241,178,0.18)",
+                boxShadow: "0 8px 32px 0 rgba(173,25,25,0.25)",
+              }}
+            >
+              {/* Hubungan */}
+              <div className="flex flex-col items-center gap-3 w-full">
+                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">Hubungan</label>
+                <div className="flex gap-2 flex-wrap justify-center">
+                  {relationOptions.map((rel) => {
+                    const isActive = selectedRelation === rel.key;
+                    return (
+                      <motion.button
+                        key={rel.key}
+                        type="button"
+                        whileTap={{ scale: 0.9 }}
+                        whileHover={{ scale: 1.07 }}
+                        onClick={() => setSelectedRelation(rel.key)}
+                        className="flex flex-col items-center gap-1 rounded-2xl px-3 py-2 text-sm font-medium transition-all duration-200 ease-in-out cursor-pointer border"
+                        style={{
+                          background: isActive
+                            ? "rgba(255,241,178,0.95)"
+                            : "rgba(255,255,255,0.08)",
+                          borderColor: isActive
+                            ? "#fff1b2"
+                            : "rgba(255,241,178,0.25)",
+                          color: isActive ? "#AD1919" : "#fff1b2",
+                          boxShadow: isActive
+                            ? "0 0 16px rgba(255,241,178,0.4)"
+                            : "none",
+                        }}
+                      >
+                        <span className="text-lg">{rel.icon}</span>
+                        <p style={{ fontSize: "11px" }}>{rel.key}</p>
+                      </motion.button>
+                    );
+                  })}
                 </div>
               </div>
-              <div className="flex flex-col items-center gap-2">
-                <label>NAMA</label>
+
+              {/* Divider */}
+              <div className="w-full border-t" style={{ borderColor: "rgba(255,241,178,0.15)" }} />
+
+              {/* Nama */}
+              <div className="flex flex-col gap-1.5 w-full px-2">
+                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">Nama</label>
                 <input
-                  name=""
-                  id=""
-                  className="bg-white rounded-2xl w-60 h-8 text-black px-3 outline-none font3"
-                ></input>
+                  id="wish-nama"
+                  name="nama"
+                  value={nama}
+                  onChange={(e) => setNama(e.target.value)}
+                  placeholder="Masukkan nama Anda..."
+                  className="w-full h-10 px-4 rounded-xl text-sm outline-none font3 transition-all duration-200"
+                  style={{
+                    background: "rgba(255,255,255,0.12)",
+                    border: "1px solid rgba(255,241,178,0.22)",
+                    color: "#fff",
+                    caretColor: "#fff1b2",
+                  }}
+                />
               </div>
-              <div className="flex flex-col items-center gap-2">
-                <label>UCAPAN</label>
+
+              {/* Ucapan */}
+              <div className="flex flex-col gap-1.5 w-full px-2">
+                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">Ucapan</label>
                 <textarea
-                  name=""
-                  id=""
-                  className="bg-white rounded-2xl w-60 h-45 py-2 text-black px-3 outline-none font3"
-                ></textarea>
+                  id="wish-ucapan"
+                  name="ucapan"
+                  value={ucapan}
+                  onChange={(e) => setUcapan(e.target.value)}
+                  placeholder="Tulis doa & ucapan Anda di sini..."
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-xl text-sm outline-none font3 resize-none transition-all duration-200"
+                  style={{
+                    background: "rgba(255,255,255,0.12)",
+                    border: "1px solid rgba(255,241,178,0.22)",
+                    color: "#fff",
+                    caretColor: "#fff1b2",
+                  }}
+                />
               </div>
-              <div className="flex items-center justify-center py-5">
-                <button className="w-40 h-12 rounded-4xl text-[#AD1919] bg-[#ffb8b8] hover:bg-[#d12222] hover:text-[#FFF1B2] transition-all duration-200 ease-in-out cursor-pointer">
-                  <h1 className="text-xl">KIRIM</h1>
-                </button>
+
+              {/* Submit */}
+              <div className="w-full px-2">
+                <AnimatePresence mode="wait">
+                  {submitSuccess ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center justify-center gap-2 w-full h-12 rounded-xl text-[#fff1b2] font-semibold"
+                      style={{ background: "rgba(34,197,94,0.3)", border: "1px solid rgba(34,197,94,0.5)" }}
+                    >
+                      <IoMdCheckmarkCircle className="text-xl text-green-300" />
+                      <span className="text-sm">Ucapan terkirim!</span>
+                    </motion.div>
+                  ) : (
+                    <motion.button
+                      key="submit"
+                      type="submit"
+                      whileTap={{ scale: 0.96 }}
+                      whileHover={{ scale: 1.02 }}
+                      disabled={isSubmitting || !selectedRelation || !nama.trim() || !ucapan.trim()}
+                      className="flex items-center justify-center gap-2 w-full h-12 rounded-xl font-semibold tracking-widest text-sm transition-all duration-300 cursor-pointer"
+                      style={{
+                        background:
+                          isSubmitting || !selectedRelation || !nama.trim() || !ucapan.trim()
+                            ? "rgba(255,184,184,0.3)"
+                            : "linear-gradient(135deg, #ec496c 0%, #AD1919 100%)",
+                        color:
+                          isSubmitting || !selectedRelation || !nama.trim() || !ucapan.trim()
+                            ? "rgba(255,241,178,0.5)"
+                            : "#fff1b2",
+                        border: "1px solid rgba(255,241,178,0.2)",
+                        boxShadow:
+                          !isSubmitting && selectedRelation && nama.trim() && ucapan.trim()
+                            ? "0 4px 20px rgba(236,73,108,0.45)"
+                            : "none",
+                        cursor:
+                          isSubmitting || !selectedRelation || !nama.trim() || !ucapan.trim()
+                            ? "not-allowed"
+                            : "pointer",
+                      }}
+                    >
+                      {isSubmitting ? (
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                          className="w-5 h-5 rounded-full border-2 border-[#fff1b2] border-t-transparent"
+                        />
+                      ) : (
+                        <>
+                          <FiSend className="text-base" />
+                          <span>KIRIM UCAPAN</span>
+                        </>
+                      )}
+                    </motion.button>
+                  )}
+                </AnimatePresence>
               </div>
-            </div>
+            </form>
           </motion.div>
 
-          {/* Comment */}
-          <div className="bg-white/30 backdrop-blur-sm p-10 translate-y-25 flex flex-col items-center justify-center gap-5 w-85 rounded-[3px] text-[#fff1b2]">
-            <div className="flex w-full gap-10 justify-between items-center text-center">
-              <p className="text-xl w-full">Doa Teman & Kerabat</p>
-              <p className="w-full p-2 bg-red-500 rounded-full">4 Ucapan</p>
-            </div>
-            {dummyComment.map((item) => (
-              <div
-                key={item.id}
-                className={`flex flex-col gap-2 p-3 ${item.styleColor} w-full h-full rounded-tl-2xl rounded-br-2xl text-center`}
-              >
-                <div className="flex justify-between">
-                  <div
-                    className={`flex items-center gap-2 px-2 rounded-xl ${item.iconStyle}`}
-                  >
-                    <div>{item.icon}</div>
-                    <p>{item.relation}</p>
-                  </div>
-                  <p>{item.hours}</p>
-                </div>
-                <p>{item.name}</p>
-                <p>{item.desc}</p>
+          {/* Comment Section - Modern */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            viewport={{ once: true }}
+            className="translate-y-25 flex flex-col items-center gap-4 w-85 rounded-2xl py-6 px-4 text-[#fff1b2]"
+            style={{
+              background: "rgba(255,255,255,0.08)",
+              backdropFilter: "blur(16px)",
+              border: "1px solid rgba(255,241,178,0.15)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+            }}
+          >
+            {/* Header */}
+            <div className="flex w-full items-center justify-between">
+              <div>
+                <p className="text-base font-semibold tracking-wide">Doa Teman & Kerabat</p>
+                <p className="text-xs text-[#ffd3d3] mt-0.5">Ucapan dari orang-orang tersayang</p>
               </div>
-            ))}
-          </div>
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", stiffness: 300, delay: 0.3 }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
+                style={{
+                  background: "linear-gradient(135deg, #ec496c 0%, #AD1919 100%)",
+                  color: "#fff1b2",
+                  boxShadow: "0 4px 12px rgba(236,73,108,0.4)",
+                }}
+              >
+                <IoMdHeart />
+                <span>{comments.length} Ucapan</span>
+              </motion.div>
+            </div>
+
+            {/* Divider */}
+            <div className="w-full border-t" style={{ borderColor: "rgba(255,241,178,0.12)" }} />
+
+            {/* Comment Cards */}
+            <div className="flex flex-col gap-3 w-full">
+              <AnimatePresence initial={false}>
+                {comments.map((item, index) => {
+                  const rel = relationOptions.find((r) => r.key === item.relation) || relationOptions[0];
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={{ opacity: 0, y: -20, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: -30, scale: 0.9 }}
+                      transition={{ duration: 0.4, delay: index < 4 ? index * 0.08 : 0, ease: "easeOut" }}
+                      className="flex flex-col gap-2 p-4 w-full rounded-2xl"
+                      style={{
+                        background: "rgba(255,255,255,0.07)",
+                        border: "1px solid rgba(255,241,178,0.12)",
+                        backdropFilter: "blur(8px)",
+                      }}
+                    >
+                      {/* Top row */}
+                      <div className="flex items-center justify-between">
+                        <div
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
+                          style={{
+                            background: rel.iconStyle
+                              .replace("bg-", "")
+                              .includes("[")
+                              ? undefined
+                              : undefined,
+                          }}
+                        >
+                          <span
+                            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${rel.iconStyle}`}
+                          >
+                            {rel.icon}
+                            {item.relation}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-[#ffd3d3] opacity-70">{item.hours}</p>
+                      </div>
+                      {/* Name */}
+                      <p className="text-sm font-semibold text-[#fff1b2] tracking-wide">{item.name}</p>
+                      {/* Message */}
+                      <p className="text-xs text-[#ffe8a0] leading-relaxed italic">&ldquo;{item.desc}&rdquo;</p>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+          </motion.div>
 
           {/* Wedding Gift */}
           <motion.div
@@ -385,7 +620,7 @@ const WeddingWish = () => {
           viewport={{ once: true }}
           className="flex relative z-40 bottom-0 -translate-y-35 justify-center"
         >
-          <div className="flex gap-3 bottom-0 text-white">
+          <div className="flex gap-3 items-center bottom-0 text-white">
             {/* Menu Button */}
             <Menu />
             {/* Next Page */}

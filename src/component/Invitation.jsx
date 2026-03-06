@@ -8,12 +8,14 @@ import pigeon from "../assetsU2/pigeon.webp";
 import halaman1 from "../assetsU2/halaman1.jpeg";
 import halaman2 from "../assetsU2/halaman2.jpeg";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import { useAudio } from "./AudioContext";
 
 const Invitation = () => {
   const navigate = useNavigate();
   const { play } = useAudio();
+  const [searchParams] = useSearchParams();
+  const namaTamu = searchParams.get("tamu") || "Tamu Undangan";
 
   const handleOpen = () => {
     play();
@@ -181,9 +183,9 @@ const Invitation = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 2.2, ease: "anticipate" }}
-                className="text-2xl mb-8 z-40"
+                className="text-2xl mb-8 z-40 text-center px-4"
               >
-                IKHSAN & PARTNER
+                {namaTamu}
               </motion.h1>
 
               <Link to="/home" className="z-40">
