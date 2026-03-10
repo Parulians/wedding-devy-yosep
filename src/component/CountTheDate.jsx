@@ -8,6 +8,7 @@ import { easeInOut, motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight } from "react-icons/fi";
 import { FaCalendarDays } from "react-icons/fa6";
+import { BsCalendarDateFill } from "react-icons/bs";
 import Menu from "./Menu";
 import AudioButton from "./AudioButton";
 
@@ -20,7 +21,7 @@ const CountTheDate = () => {
   });
 
   useEffect(() => {
-    const targetDate = new Date("2026-06-02T08:00:00").getTime();
+    const targetDate = new Date("2026-04-11T09:00:00").getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -140,16 +141,23 @@ const CountTheDate = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeInOut" }}
             viewport={{ once: true }}
-            className="absolute top-0 flex flex-col justify-center items-center gap-3"
+            className="absolute top-0 flex flex-col justify-center items-center gap-3 w-90"
           >
-            <h1 className="uppercase text-[32px] text-[#fff1b2]">
-              Count The Date
+            <p className="text-xs tracking-[0.3em] text-[#ffd3d3] font-medium uppercase">
+              Count
+            </p>
+            <h1 className="text-[36px] font-bold text-[#fff1b2] leading-tight">
+              THE DATE
             </h1>
-            <div className="border-t w-90 border-[#fff1b2]"></div>
+            <div className="flex items-center gap-3 w-full justify-center">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#fff1b2]/40" />
+              <BsCalendarDateFill className="text-[#fff1b2] text-lg" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#fff1b2]/40" />
+            </div>
           </motion.div>
 
-          <div className="flex flex-col items-center pt-60 justify-center">
-            <div className="absolute flex flex-col items-center top-0 translate-y-20 text-[#fff1b2]">
+          <div className="flex flex-col items-center pt-30 justify-center">
+            <div className="flex flex-col items-center top-0 pb-8  text-[#fff1b2]">
               <motion.h1
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -215,7 +223,23 @@ const CountTheDate = () => {
               viewport={{ once: true }}
               className="pt-10"
             >
-              <button className="bg-[#ffb8b8] text-[#AD1919] w-55 h-10 rounded-2xl flex items-center justify-center gap-3 hover:bg-[#AD1919] hover:text-[#ffb7dc] transition-all duration-200 ease-in-out cursor-pointer">
+              <button
+                onClick={() => {
+                  const title = encodeURIComponent(
+                    "The Wedding of Yosep & Devy",
+                  );
+                  const details = encodeURIComponent(
+                    "Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan kami.",
+                  );
+                  const startDate = "20260411T090000";
+                  const endDate = "20260411T180000";
+                  window.open(
+                    `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startDate}/${endDate}&details=${details}`,
+                    "_blank",
+                  );
+                }}
+                className="bg-[#ffb8b8] text-[#AD1919] w-55 h-10 rounded-2xl flex items-center justify-center gap-3 hover:bg-[#AD1919] hover:text-[#ffb7dc] transition-all duration-200 ease-in-out cursor-pointer"
+              >
                 <FaCalendarDays />
                 <h1>SIMPAN DI KALENDER</h1>
               </button>
@@ -250,7 +274,7 @@ const CountTheDate = () => {
           </div>
         </div>
 
-          {/* Button */}
+        {/* Button */}
         <div className="relative z-10 flex justify-center w-full">
           <motion.div
             initial={{ opacity: 0, y: 50 }}

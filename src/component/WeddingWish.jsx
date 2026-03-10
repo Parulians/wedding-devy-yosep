@@ -15,6 +15,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaSuitcase } from "react-icons/fa";
 import { FaHandshakeSimple } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
+import { TfiGift } from "react-icons/tfi";
 import AudioButton from "./AudioButton";
 import Menu from "./Menu";
 
@@ -45,7 +46,8 @@ const relationOptions = [
   },
 ];
 
-const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDZSbc3Lt8bFHzIXdL9l5tgYuhjJA4unYcCYCq_xL-3ADBWXTKAwaNCqHIO4--dto-/exec";
+const APP_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxDZSbc3Lt8bFHzIXdL9l5tgYuhjJA4unYcCYCq_xL-3ADBWXTKAwaNCqHIO4--dto-/exec";
 
 const WeddingWish = () => {
   const [selectedRelation, setSelectedRelation] = useState("");
@@ -67,11 +69,11 @@ const WeddingWish = () => {
             const dateStr = dateObj.toLocaleDateString("id-ID", {
               day: "numeric",
               month: "short",
-              year: "numeric"
+              year: "numeric",
             });
             const timeStr = dateObj.toLocaleTimeString("id-ID", {
               hour: "2-digit",
-              minute: "2-digit"
+              minute: "2-digit",
             });
             return {
               id: item.id || Date.now() + Math.random(),
@@ -97,7 +99,7 @@ const WeddingWish = () => {
     e.preventDefault();
     if (!selectedRelation || !nama.trim() || !ucapan.trim()) return;
     setIsSubmitting(true);
-    
+
     try {
       const formData = new FormData();
       formData.append("name", nama.trim());
@@ -107,7 +109,7 @@ const WeddingWish = () => {
       await fetch(APP_SCRIPT_URL, {
         method: "POST",
         body: formData,
-        mode: "no-cors" // Required to avoid CORS block when sending to App Script
+        mode: "no-cors", // Required to avoid CORS block when sending to App Script
       });
 
       const newDate = new Date();
@@ -118,7 +120,7 @@ const WeddingWish = () => {
         desc: ucapan.trim(),
         hours: "Baru saja",
       };
-      
+
       setComments((prev) => [newComment, ...prev]);
       setSelectedRelation("");
       setNama("");
@@ -223,13 +225,20 @@ const WeddingWish = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeInOut" }}
             viewport={{ once: true }}
-            className="absolute flex flex-col items-center text-center gap-3 top-0 "
+            className="absolute flex flex-col items-center text-center gap-1 top-0 w-90"
           >
-            <h1 className="text-[32px] text-[#fff1b2]">
-              WEDDING WISH &<br />
+            <p className="text-[24px] font-bold text-[#fff1b2] leading-tight">
+              WEDDING WISH
+            </p>
+            <p className="text-lg text-[#fff1b2]">&</p>
+            <h1 className="text-[24px] font-bold text-[#fff1b2] leading-tight">
               WEDDING GIFT
             </h1>
-            <div className="border-t w-90 border-[#fff1b2]"></div>
+            <div className="flex items-center gap-3 w-full justify-center">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#fff1b2]/40" />
+              <TfiGift className="text-[#fff1b2] text-lg" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#fff1b2]/40" />
+            </div>
           </motion.div>
 
           {/* Wedding Wish */}
@@ -288,7 +297,9 @@ const WeddingWish = () => {
             >
               {/* Hubungan */}
               <div className="flex flex-col items-center gap-3 w-full">
-                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">Hubungan</label>
+                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">
+                  Hubungan
+                </label>
                 <div className="flex gap-2 flex-wrap justify-center">
                   {relationOptions.map((rel) => {
                     const isActive = selectedRelation === rel.key;
@@ -322,11 +333,16 @@ const WeddingWish = () => {
               </div>
 
               {/* Divider */}
-              <div className="w-full border-t" style={{ borderColor: "rgba(255,241,178,0.15)" }} />
+              <div
+                className="w-full border-t"
+                style={{ borderColor: "rgba(255,241,178,0.15)" }}
+              />
 
               {/* Nama */}
               <div className="flex flex-col gap-1.5 w-full px-2">
-                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">Nama</label>
+                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">
+                  Nama
+                </label>
                 <input
                   id="wish-nama"
                   name="nama"
@@ -345,7 +361,9 @@ const WeddingWish = () => {
 
               {/* Ucapan */}
               <div className="flex flex-col gap-1.5 w-full px-2">
-                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">Ucapan</label>
+                <label className="text-xs tracking-[0.25em] font-semibold text-[#ffd3d3] uppercase">
+                  Ucapan
+                </label>
                 <textarea
                   id="wish-ucapan"
                   name="ucapan"
@@ -373,7 +391,10 @@ const WeddingWish = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       className="flex items-center justify-center gap-2 w-full h-12 rounded-xl text-[#fff1b2] font-semibold"
-                      style={{ background: "rgba(34,197,94,0.3)", border: "1px solid rgba(34,197,94,0.5)" }}
+                      style={{
+                        background: "rgba(34,197,94,0.3)",
+                        border: "1px solid rgba(34,197,94,0.5)",
+                      }}
                     >
                       <IoMdCheckmarkCircle className="text-xl text-green-300" />
                       <span className="text-sm">Ucapan terkirim!</span>
@@ -384,24 +405,41 @@ const WeddingWish = () => {
                       type="submit"
                       whileTap={{ scale: 0.96 }}
                       whileHover={{ scale: 1.02 }}
-                      disabled={isSubmitting || !selectedRelation || !nama.trim() || !ucapan.trim()}
+                      disabled={
+                        isSubmitting ||
+                        !selectedRelation ||
+                        !nama.trim() ||
+                        !ucapan.trim()
+                      }
                       className="flex items-center justify-center gap-2 w-full h-12 rounded-xl font-semibold tracking-widest text-sm transition-all duration-300 cursor-pointer"
                       style={{
                         background:
-                          isSubmitting || !selectedRelation || !nama.trim() || !ucapan.trim()
+                          isSubmitting ||
+                          !selectedRelation ||
+                          !nama.trim() ||
+                          !ucapan.trim()
                             ? "rgba(255,184,184,0.3)"
                             : "linear-gradient(135deg, #ec496c 0%, #AD1919 100%)",
                         color:
-                          isSubmitting || !selectedRelation || !nama.trim() || !ucapan.trim()
+                          isSubmitting ||
+                          !selectedRelation ||
+                          !nama.trim() ||
+                          !ucapan.trim()
                             ? "rgba(255,241,178,0.5)"
                             : "#fff1b2",
                         border: "1px solid rgba(255,241,178,0.2)",
                         boxShadow:
-                          !isSubmitting && selectedRelation && nama.trim() && ucapan.trim()
+                          !isSubmitting &&
+                          selectedRelation &&
+                          nama.trim() &&
+                          ucapan.trim()
                             ? "0 4px 20px rgba(236,73,108,0.45)"
                             : "none",
                         cursor:
-                          isSubmitting || !selectedRelation || !nama.trim() || !ucapan.trim()
+                          isSubmitting ||
+                          !selectedRelation ||
+                          !nama.trim() ||
+                          !ucapan.trim()
                             ? "not-allowed"
                             : "pointer",
                       }}
@@ -409,7 +447,11 @@ const WeddingWish = () => {
                       {isSubmitting ? (
                         <motion.div
                           animate={{ rotate: 360 }}
-                          transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                          transition={{
+                            duration: 0.8,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
                           className="w-5 h-5 rounded-full border-2 border-[#fff1b2] border-t-transparent"
                         />
                       ) : (
@@ -442,8 +484,12 @@ const WeddingWish = () => {
             {/* Header */}
             <div className="flex w-full items-center justify-between">
               <div>
-                <p className="text-base font-semibold tracking-wide">Doa Teman & Kerabat</p>
-                <p className="text-xs text-[#ffd3d3] mt-0.5">Ucapan dari orang-orang tersayang</p>
+                <p className="text-base font-semibold tracking-wide">
+                  Doa Teman & Kerabat
+                </p>
+                <p className="text-xs text-[#ffd3d3] mt-0.5">
+                  Ucapan dari orang-orang tersayang
+                </p>
               </div>
               <motion.div
                 initial={{ scale: 0 }}
@@ -451,7 +497,8 @@ const WeddingWish = () => {
                 transition={{ type: "spring", stiffness: 300, delay: 0.3 }}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold"
                 style={{
-                  background: "linear-gradient(135deg, #ec496c 0%, #AD1919 100%)",
+                  background:
+                    "linear-gradient(135deg, #ec496c 0%, #AD1919 100%)",
                   color: "#fff1b2",
                   boxShadow: "0 4px 12px rgba(236,73,108,0.4)",
                 }}
@@ -462,20 +509,29 @@ const WeddingWish = () => {
             </div>
 
             {/* Divider */}
-            <div className="w-full border-t" style={{ borderColor: "rgba(255,241,178,0.12)" }} />
+            <div
+              className="w-full border-t"
+              style={{ borderColor: "rgba(255,241,178,0.12)" }}
+            />
 
             {/* Comment Cards */}
             <div className="flex flex-col gap-3 w-full">
               <AnimatePresence initial={false}>
                 {comments.map((item, index) => {
-                  const rel = relationOptions.find((r) => r.key === item.relation) || relationOptions[0];
+                  const rel =
+                    relationOptions.find((r) => r.key === item.relation) ||
+                    relationOptions[0];
                   return (
                     <motion.div
                       key={item.id}
                       initial={{ opacity: 0, y: -20, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, x: -30, scale: 0.9 }}
-                      transition={{ duration: 0.4, delay: index < 4 ? index * 0.08 : 0, ease: "easeOut" }}
+                      transition={{
+                        duration: 0.4,
+                        delay: index < 4 ? index * 0.08 : 0,
+                        ease: "easeOut",
+                      }}
                       className="flex flex-col gap-2 p-4 w-full rounded-2xl"
                       style={{
                         background: "rgba(255,255,255,0.07)",
@@ -502,12 +558,18 @@ const WeddingWish = () => {
                             {item.relation}
                           </span>
                         </div>
-                        <p className="text-[10px] text-[#ffd3d3] opacity-70">{item.hours}</p>
+                        <p className="text-[10px] text-[#ffd3d3] opacity-70">
+                          {item.hours}
+                        </p>
                       </div>
                       {/* Name */}
-                      <p className="text-sm font-semibold text-[#fff1b2] tracking-wide">{item.name}</p>
+                      <p className="text-sm font-semibold text-[#fff1b2] tracking-wide">
+                        {item.name}
+                      </p>
                       {/* Message */}
-                      <p className="text-xs text-[#ffe8a0] leading-relaxed italic">&ldquo;{item.desc}&rdquo;</p>
+                      <p className="text-xs text-[#ffe8a0] leading-relaxed italic">
+                        &ldquo;{item.desc}&rdquo;
+                      </p>
                     </motion.div>
                   );
                 })}

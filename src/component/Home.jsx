@@ -164,9 +164,9 @@ const Home = () => {
             <h1 className="font4 text-[35px] mt-2">Efesus 4 : 2-3</h1>
 
             <p className="text-lg max-w-xs leading-relaxed">
-              Hendaklah kamu selalu rendah hati, lemah lembut, dan sabar,
-              Tunjukkanlah kasihmu dalam hal saling membantu dan berushalah
-              memeihara kesatuan roh oleh ikatan damai sejahtera
+              "Hendaklah kamu selalu rendah hati, lemah lembut, dan sabar,
+              Tunjukkanlah kasihmu dalam hal saling membantu dan berusahalah
+              memelihara kesatuan roh oleh ikatan damai sejahtera."
             </p>
 
             <motion.div

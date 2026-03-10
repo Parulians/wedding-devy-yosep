@@ -11,7 +11,7 @@ import { Link } from "react-router";
 import { FiArrowRight, FiMapPin } from "react-icons/fi";
 import AudioButton from "./AudioButton";
 import Menu from "./Menu";
-import { MdMenuOpen } from "react-icons/md";
+import { Icon } from "@iconify/react";
 
 const Date = () => {
   // Link Google Maps Akurat
@@ -93,12 +93,23 @@ const Date = () => {
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="flex flex-col items-center gap-3"
+            className="flex flex-col items-center gap-3 w-100"
           >
-            <h1 className="text-[32px] text-[#FFF1B2]">
-              PEMBERKATAN <br />&<br /> RESEPSI
+            <p className="text-xs tracking-[0.3em] text-[#ffd3d3] font-medium uppercase">
+              Pemberkatan
+            </p>
+            <h1 className="text-[36px] font-bold text-[#fff1b2] leading-tight">
+              RESEPSI
             </h1>
-            <div className="border-b-2 w-54 border-[#FFF1B2]"></div>
+            <div className="flex items-center gap-3 w-full justify-center">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#fff1b2]/40" />
+              <Icon
+                icon="fluent-emoji-high-contrast:wedding"
+                width="22"
+                className="text-[#fff1b2]"
+              />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#fff1b2]/40" />
+            </div>
           </motion.div>
 
           {/* Section: Pemberkatan */}

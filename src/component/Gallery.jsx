@@ -4,30 +4,43 @@ import ornamenSide from "../assetsU2/ornamenSide.webp";
 import ulosBottom from "../assetsU2/ulosLimit.png";
 import decorationBottom from "../assetsU2/decorationBottom.png";
 import background from "../assetsU2/background.webp";
-import prewedTop1 from "../assetsU2/photo-5.webp";
-import prewedTop2 from "../assetsU2/photo-2.webp";
-import prewedBot1 from "../assetsU2/photo-1.webp";
-import prewedBot2 from "../assetsU2/photo-4.webp";
-import prewedMid1 from "../assetsU2/photo-3.webp";
-import prewedMid2 from "../assetsU2/photo-4.webp";
-import prewedMid3 from "../assetsU2/photo-6.webp";
-import prewedMid4 from "../assetsU2/photo-1.webp";
+import photo1 from "../assetsU2/photo-1.webp";
+import photo2 from "../assetsU2/photo-2.webp";
+import photo3 from "../assetsU2/photo-3.webp";
+import photo4 from "../assetsU2/photo-4.webp";
+import photo5 from "../assetsU2/photo-5.webp";
+import photo6 from "../assetsU2/photo-6.webp";
+import photo7 from "../assetsU2/photo-7.webp";
+import photo8 from "../assetsU2/photo-8.webp";
+import photo9 from "../assetsU2/photo-9.webp";
+import photo10 from "../assetsU2/photo-10.webp";
+import photo11 from "../assetsU2/photo-11.webp";
+import photo12 from "../assetsU2/photo-12.webp";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
-import { FiArrowRight, FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import {
+  FiArrowRight,
+  FiX,
+  FiChevronLeft,
+  FiChevronRight,
+} from "react-icons/fi";
 import { IoImagesOutline } from "react-icons/io5";
 import AudioButton from "./AudioButton";
 import Menu from "./Menu";
 
 const allPhotos = [
-  { id: 1, src: prewedTop2, span: "row-span-2" },
-  { id: 2, src: prewedTop1, span: "row-span-1" },
-  { id: 3, src: prewedMid1, span: "row-span-1" },
-  { id: 4, src: prewedMid3, span: "row-span-2" },
-  { id: 5, src: prewedMid2, span: "row-span-1" },
-  { id: 6, src: prewedBot1, span: "row-span-1" },
-  { id: 7, src: prewedMid4, span: "row-span-1" },
-  { id: 8, src: prewedBot2, span: "row-span-2" },
+  { id: 1, src: photo1, span: "row-span-2" },
+  { id: 2, src: photo2, span: "row-span-1" },
+  { id: 3, src: photo3, span: "row-span-1" },
+  { id: 4, src: photo4, span: "row-span-2" },
+  // { id: 5, src: photo5, span: "row-span-1" },
+  // { id: 6, src: photo6, span: "row-span-1" },
+  { id: 7, src: photo7, span: "row-span-1" },
+  { id: 8, src: photo8, span: "row-span-2" },
+  { id: 9, src: photo9, span: "row-span-2" },
+  { id: 10, src: photo10, span: "row-span-2" },
+  { id: 11, src: photo11, span: "row-span-2" },
+  { id: 12, src: photo12, span: "row-span-1" },
 ];
 
 const Gallery = () => {
@@ -116,8 +129,16 @@ const Gallery = () => {
 
         {/* Decoration Head */}
         <div className="absolute top-0 w-full flex items-center justify-between z-10 pointer-events-none">
-          <img src={ornamenHead} alt="" className="w-42 object-cover h-50 rounded-t-2xl" />
-          <img src={ornamenHead} alt="" className="w-42 object-cover h-50 rounded-t-2xl transform scale-x-[-1]" />
+          <img
+            src={ornamenHead}
+            alt=""
+            className="w-42 object-cover h-50 rounded-t-2xl"
+          />
+          <img
+            src={ornamenHead}
+            alt=""
+            className="w-42 object-cover h-50 rounded-t-2xl transform scale-x-[-1]"
+          />
         </div>
 
         {/* Decoration Bottom */}
@@ -130,22 +151,32 @@ const Gallery = () => {
           className="absolute z-10 bottom-0 w-full h-20 object-cover rounded-b-2xl pointer-events-none"
         />
         <div className="absolute z-0 bottom-0 w-full flex justify-between -translate-y-17 pointer-events-none">
-          <img src={decorationBottom} alt="" className="w-40 h-full object-cover rounded-2xl opacity-70" />
-          <img src={decorationBottom} alt="" className="w-40 h-full object-cover rounded-2xl opacity-70 transform scale-x-[-1]" />
+          <img
+            src={decorationBottom}
+            alt=""
+            className="w-40 h-full object-cover rounded-2xl opacity-70"
+          />
+          <img
+            src={decorationBottom}
+            alt=""
+            className="w-40 h-full object-cover rounded-2xl opacity-70 transform scale-x-[-1]"
+          />
         </div>
 
         {/* Content */}
-        <div className="relative pb-32 z-10">
+        <div className="relative pb-52 z-10">
           {/* Title */}
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            transition={{ duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
             className="flex flex-col text-center items-center gap-2 mt-22 mb-6 text-white px-5"
           >
-            <p className="text-xs tracking-[0.3em] text-[#ffd3d3] font-medium uppercase">Pre-Wedding</p>
-            <h1 className="text-[28px] font-bold text-[#fff1b2] leading-tight">
+            <p className="text-xs tracking-[0.3em] text-[#ffd3d3] font-medium uppercase">
+              Pre-Wedding
+            </p>
+            <h1 className="text-[36px] font-bold text-[#fff1b2] leading-tight">
               Our Gallery
             </h1>
             <div className="flex items-center gap-3 w-full justify-center">
@@ -180,7 +211,11 @@ const Gallery = () => {
                   initial={{ opacity: 0, scale: 0.85, y: 20 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.5, delay: index * 0.07, ease: "easeOut" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.07,
+                    ease: "easeOut",
+                  }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => openLightbox(index)}
@@ -224,7 +259,7 @@ const Gallery = () => {
           >
             <div className="flex gap-3 items-center bottom-0 text-white">
               <Menu />
-              <Link to="/weddingWish" className="flex items-center gap-2">
+              <Link to="/date" className="flex items-center gap-2">
                 <button className="flex justify-center items-center w-9 h-9 rounded-2xl bg-[#AD1919] hover:bg-[#d12222] transition-all ease-in-out duration-300 cursor-pointer shrink-0">
                   <FiArrowRight className="text-2xl" />
                 </button>
@@ -248,13 +283,20 @@ const Gallery = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
-              style={{ background: "rgba(0,0,0,0.92)", backdropFilter: "blur(12px)" }}
+              style={{
+                background: "rgba(0,0,0,0.92)",
+                backdropFilter: "blur(12px)",
+              }}
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
             >
               {/* Top bar */}
-              <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-5 pt-5 pb-3 z-10"
-                style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.7), transparent)" }}
+              <div
+                className="absolute top-0 left-0 right-0 flex items-center justify-between px-5 pt-5 pb-3 z-10"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(0,0,0,0.7), transparent)",
+                }}
               >
                 {/* Counter */}
                 <motion.div
@@ -274,7 +316,9 @@ const Gallery = () => {
                   >
                     <IoImagesOutline className="text-base" />
                     <span>{lightboxIndex + 1}</span>
-                    <span className="text-[#ffd3d3] font-normal">/ {total}</span>
+                    <span className="text-[#ffd3d3] font-normal">
+                      / {total}
+                    </span>
                   </div>
                 </motion.div>
 
@@ -302,7 +346,9 @@ const Gallery = () => {
                 <motion.div
                   key={lightboxIndex}
                   className="h-full rounded-full"
-                  style={{ background: "linear-gradient(90deg, #ec496c, #fff1b2)" }}
+                  style={{
+                    background: "linear-gradient(90deg, #ec496c, #fff1b2)",
+                  }}
                   initial={{ width: "0%" }}
                   animate={{ width: `${((lightboxIndex + 1) / total) * 100}%` }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
@@ -381,7 +427,10 @@ const Gallery = () => {
                     }}
                     animate={{
                       width: i === lightboxIndex ? 24 : 6,
-                      background: i === lightboxIndex ? "#fff1b2" : "rgba(255,241,178,0.3)",
+                      background:
+                        i === lightboxIndex
+                          ? "#fff1b2"
+                          : "rgba(255,241,178,0.3)",
                     }}
                     transition={{ duration: 0.25 }}
                     className="h-1.5 rounded-full cursor-pointer"
@@ -401,12 +450,17 @@ const Gallery = () => {
                     animate={{
                       opacity: i === lightboxIndex ? 1 : 0.4,
                       scale: i === lightboxIndex ? 1 : 0.85,
-                      borderColor: i === lightboxIndex ? "#fff1b2" : "transparent",
+                      borderColor:
+                        i === lightboxIndex ? "#fff1b2" : "transparent",
                     }}
                     transition={{ duration: 0.2 }}
                     className="w-10 h-10 flex-shrink-0 rounded-lg overflow-hidden cursor-pointer border-2"
                   >
-                    <img src={photo.src} alt="" className="w-full h-full object-cover" />
+                    <img
+                      src={photo.src}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
                   </motion.div>
                 ))}
               </div>

@@ -2,13 +2,14 @@ import React from "react";
 import ornamenHead from "../assetsU2/ornamenHead.png";
 import ulosBottom from "../assetsU2/ulosLimit.png";
 import background from "../assetsU2/background.webp";
-import gallery1 from "../assetsU2/photo-5.webp";
-import gallery2 from "../assetsU2/photo-6.webp";
+import gallery1 from "../assetsU2/photo-6.webp";
+import gallery2 from "../assetsU2/photo-5.webp";
 import gallery3 from "../assetsU2/photo-2.webp";
 import pin from "../assetsU2/pin.png";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { FiArrowRight } from "react-icons/fi";
+import { GiGloves } from "react-icons/gi";
 import AudioButton from "./AudioButton";
 import Menu from "./Menu";
 
@@ -49,12 +50,17 @@ const OurJourney = () => {
             viewport={{ once: true }}
             className="flex flex-col text-center items-center gap-3 top-0 text-white"
           >
-            <h1 className="text-[32px] text-[#fff1b2]">
-              KISAH PERTEMUAN
-              <br />
+            <p className="text-xs tracking-[0.3em] text-[#ffd3d3] font-medium uppercase">
+              Kisah Pertemuan
+            </p>
+            <h1 className="text-[36px] font-bold text-[#fff1b2] leading-tight">
               CINTA KAMI
             </h1>
-            <div className="border-t w-90 border-[#fff1b2]"></div>
+            <div className="flex items-center gap-3 w-full justify-center">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#fff1b2]/40" />
+              <GiGloves className="text-[#fff1b2] text-lg" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#fff1b2]/40" />
+            </div>
           </motion.div>
 
           <div className="relative z-4 flex flex-col items-center gap-15 pt-10 pb-65 justify-center">
@@ -74,7 +80,7 @@ const OurJourney = () => {
                 {/* decorations */}
                 <div>
                   <motion.img
-                    initial={{ opacity: 0, rotate: -15 }}
+                    initial={{ opacity: 0, rotate: -8 }}
                     whileInView={{ opacity: 1, rotate: 0 }}
                     transition={{
                       duration: 3.6,
@@ -83,8 +89,9 @@ const OurJourney = () => {
                     viewport={{ once: true }}
                     src={gallery1}
                     alt="Photo 1"
-                    className="absolute z-1 w-28 top-0 left-0 translate-y-18 -translate-x-1 rotate-15 shadow-sm"
+                    className="absolute z-1 w-25 top-0 left-0 translate-y-18 rotate-15 shadow-sm"
                   />
+
                   <motion.img
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
@@ -92,7 +99,7 @@ const OurJourney = () => {
                     viewport={{ once: true }}
                     src={pin}
                     alt="Pin"
-                    className="absolute w-10 top-0 left-0 z-2 translate-y-12 "
+                    className="absolute w-10 top-0 left-0 z-2 translate-y-12 translate-x-3 "
                   />
                 </div>
               </motion.div>
@@ -155,7 +162,7 @@ const OurJourney = () => {
                     viewport={{ once: true }}
                     src={gallery2}
                     alt="Photo 1"
-                    className="absolute z-1 w-25 top-0 left-0 translate-y-18 rotate-15 shadow-sm"
+                    className="absolute z-1 w-28 top-0 left-0 translate-y-18 -translate-x-1 rotate-15 shadow-sm"
                   />
                   <motion.img
                     initial={{ opacity: 0 }}
@@ -164,7 +171,7 @@ const OurJourney = () => {
                     viewport={{ once: true }}
                     src={pin}
                     alt="Pin"
-                    className="absolute w-10 top-0 left-0 z-2 translate-y-12 translate-x-3 "
+                    className="absolute w-10 top-0 left-0 z-2 translate-y-12 "
                   />
                 </div>
               </motion.div>
