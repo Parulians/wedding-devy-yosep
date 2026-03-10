@@ -8,14 +8,37 @@ import pigeon from "../assetsU2/pigeon.webp";
 import halaman1 from "../assetsU2/halaman1.jpeg";
 import halaman2 from "../assetsU2/halaman2.jpeg";
 import { motion } from "framer-motion";
-import { Link, useNavigate, useSearchParams } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAudio } from "./AudioContext";
+
+/**
+ * Membaca nilai param dari query string secara mentah (raw),
+ * sehingga karakter '&' di dalam nilai TIDAK diinterpretasikan
+ * sebagai pemisah parameter URL.
+ *
+ * Contoh:
+ *   URL: ?tamu=Askar & Qiara  → "Askar & Qiara"  ✓
+ *   URL: ?tamu=Askar%20%26%20Qiara → "Askar & Qiara"  ✓
+ */
+const getRawParam = (paramName) => {
+  const search = window.location.search; // e.g. "?tamu=Askar & Qiara"
+  const key = paramName + "=";
+  const idx = search.indexOf(key);
+  if (idx === -1) return null;
+  // Ambil semua karakter setelah "tamu=" hingga akhir string
+  const raw = search.slice(idx + key.length);
+  // Decode karakter yang sengaja di-encode (%20, %26, dst)
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
+};
 
 const Invitation = () => {
   const navigate = useNavigate();
   const { play } = useAudio();
-  const [searchParams] = useSearchParams();
-  const namaTamu = searchParams.get("tamu") || "Tamu Undangan";
+  const namaTamu = getRawParam("tamu") || "Tamu Undangan";
 
   const handleOpen = () => {
     play();
