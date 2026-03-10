@@ -9,23 +9,26 @@ import WeddingWish from "./component/WeddingWish";
 import CountTheDate from "./component/CountTheDate";
 import ScrollToTop from "./component/ScrollToTop";
 import { AudioProvider } from "./component/AudioContext";
+import ImagePreloader from "./component/ImagePreloader";
 
 const App = () => {
   return (
-    <AudioProvider>
-      <Router>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Invitation />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/ourJourney" element={<OurJourney />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/date" element={<Date />} />
-          <Route path="/weddingWish" element={<WeddingWish />} />
-          <Route path="/countTheDate" element={<CountTheDate />} />
-        </Routes>
-      </Router>
-    </AudioProvider>
+    <ImagePreloader>
+      <AudioProvider>
+        <Router>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Invitation />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/ourJourney" element={<OurJourney />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/date" element={<Date />} />
+            <Route path="/weddingWish" element={<WeddingWish />} />
+            <Route path="/countTheDate" element={<CountTheDate />} />
+          </Routes>
+        </Router>
+      </AudioProvider>
+    </ImagePreloader>
   );
 };
 

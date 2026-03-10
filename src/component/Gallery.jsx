@@ -101,7 +101,6 @@ const Gallery = () => {
         {/* Background */}
         <img
           src={background}
-          loading="lazy"
           alt=""
           className="absolute z-0 w-full h-full object-cover opacity-60"
         />
@@ -225,7 +224,6 @@ const Gallery = () => {
                 >
                   <img
                     src={photo.src}
-                    loading="lazy"
                     alt={`Gallery photo ${index + 1}`}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />

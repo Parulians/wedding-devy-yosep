@@ -26,7 +26,6 @@ const Home = () => {
         <div className="absolute inset-0 z-0">
           <img
             src={background}
-            loading="lazy"
             alt="background"
             className="w-full h-full object-cover opacity-60 rounded-2xl"
           />
@@ -180,7 +179,6 @@ const Home = () => {
                 src={ornamenHome}
                 alt="Ornamen Home"
                 className="h-[250px] object-contain mt-13"
-                loading="lazy"
               />
             </motion.div>
           </motion.header>
@@ -209,7 +207,7 @@ const Home = () => {
                   Putra pertama dari :
                 </p>
                 <p className="max-w-xs leading-relaxed">
-                  Bapak Mayor Arh M. Sianturi
+                  Bapak M. Sianturi
                 </p>
                 <p>&</p>
                 <p className="max-w-xs leading-relaxed">Ibu Maria Sitorus</p>

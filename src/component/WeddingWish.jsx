@@ -142,7 +142,6 @@ const WeddingWish = () => {
           {/* imageBackground */}
           <img
             src={background}
-            loading="lazy"
             alt=""
             className="absolute z-0  w-full h-full object-cover opacity-60"
           />

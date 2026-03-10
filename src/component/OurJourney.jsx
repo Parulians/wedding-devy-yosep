@@ -20,7 +20,6 @@ const OurJourney = () => {
         {/* backgroundImage */}
         <img
           src={background}
-          loading="lazy"
           alt="background"
           className="absolute w-full h-full rounded-2xl  opacity-60"
         />

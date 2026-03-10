@@ -59,7 +59,6 @@ const CountTheDate = () => {
           {/* imageBackground */}
           <img
             src={background}
-            loading="lazy"
             alt=""
             className="absolute h-full object-cover opacity-60"
           />

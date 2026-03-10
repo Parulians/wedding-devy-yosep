@@ -26,7 +26,6 @@ const Date = () => {
         {/* backgroundImage */}
         <img
           src={background}
-          loading="lazy"
           alt="background"
           className="absolute inset-0 z-0 w-full h-full rounded-2xl object-cover opacity-60"
         />
