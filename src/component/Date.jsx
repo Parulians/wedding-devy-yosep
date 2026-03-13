@@ -121,7 +121,7 @@ const Date = () => {
             <h2 className="font4 text-6xl text-[#FFF1B2]">Pemberkatan</h2>
             <div className="flex flex-col gap-1 text-lg">
               <p className="font-semibold text-xl">Sabtu, 11 April 2026</p>
-              <p>Pukul 09.00 WIB - Selesai</p>
+              <p>Pukul 09.00 WIB - 11.00 WIB</p>
               <p className="text-[16px] mt-2 leading-relaxed px-4 uppercase">
                 GEREJA HKBP GEDONG RESSORT KRAMAT JATI,
                 <br />
@@ -149,7 +149,7 @@ const Date = () => {
             <h2 className="font4 text-6xl text-[#FFF1B2]">Resepsi</h2>
             <div className="flex flex-col gap-1 text-lg">
               <p className="font-semibold text-xl">Sabtu, 11 April 2026</p>
-              <p>Pukul 12.00 WIB - Selesai</p>
+              <p>Pukul 12.00 WIB - 16.00 WIB</p>
               <p className="text-[16px] mt-2 leading-relaxed px-4 uppercase">
                 GEDUNG SOPO MARPINGKIR HKBP
                 <br />
